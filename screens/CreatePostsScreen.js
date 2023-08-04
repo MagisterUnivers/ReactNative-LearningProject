@@ -116,9 +116,7 @@ export default function CreatePostsScreen({ navigation }) {
 			photo
 		};
 		await MediaLibrary.createAssetAsync(photo);
-		navigation.replace('Home', {
-			screen: 'PostsScreen'
-		});
+		navigation.navigate('PostsScreen', { postData });
 	};
 
 	return (
