@@ -57,9 +57,13 @@ export default function LoginScreen() {
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView
 					behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-					keyboardVerticalOffset={Platform.OS === 'android' ? 0 : undefined}
 				>
-					<View style={styles.Wrapper}>
+					<View
+						style={{
+							...styles.Wrapper,
+							marginBottom: isUserPasswordInFocus ? 50 : 0
+						}}
+					>
 						<Text style={styles.authTitle}>Увійти</Text>
 						<View style={styles.SectionStyle}>
 							<TextInput
