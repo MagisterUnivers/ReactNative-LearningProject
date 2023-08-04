@@ -43,6 +43,7 @@ export default function LoginScreen() {
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView
 					behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+					keyboardVerticalOffset={Platform.OS === 'android' ? 0 : undefined}
 				>
 					<View style={styles.Wrapper}>
 						<Text style={styles.authTitle}>Увійти</Text>
@@ -55,6 +56,7 @@ export default function LoginScreen() {
 								}
 								onFocus={toggleUserEmailFocus}
 								onBlur={toggleUserEmailFocus}
+								value={userEmail}
 								onChangeText={(UserEmail) => setUserEmail(UserEmail)}
 								underlineColorAndroid="#f000"
 								placeholder="Адреса електронної пошти"
@@ -77,6 +79,7 @@ export default function LoginScreen() {
 								}
 								onFocus={toggleUserPasswordFocus}
 								onBlur={toggleUserPasswordFocus}
+								value={userPassword}
 								onChangeText={(UserPassword) => setUserPassword(UserPassword)}
 								underlineColorAndroid="#f000"
 								placeholder="Пароль"

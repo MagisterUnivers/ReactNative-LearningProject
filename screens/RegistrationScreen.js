@@ -105,6 +105,7 @@ export default function RegistrationScreen() {
 								}
 								onFocus={toggleUserNameFocus}
 								onBlur={toggleUserNameFocus}
+								value={userName}
 								onChangeText={(UserName) => setUserName(UserName)}
 								underlineColorAndroid="#f000"
 								placeholder="Логін"
@@ -126,6 +127,7 @@ export default function RegistrationScreen() {
 								}
 								onFocus={toggleUserEmailFocus}
 								onBlur={toggleUserEmailFocus}
+								value={userEmail}
 								onChangeText={(UserEmail) => setUserEmail(UserEmail)}
 								underlineColorAndroid="#f000"
 								placeholder="Адреса електронної пошти"
@@ -148,6 +150,7 @@ export default function RegistrationScreen() {
 								}
 								onFocus={toggleUserPasswordFocus}
 								onBlur={toggleUserPasswordFocus}
+								value={userPassword}
 								onChangeText={(UserPassword) => setUserPassword(UserPassword)}
 								underlineColorAndroid="#f000"
 								placeholder="Пароль"
