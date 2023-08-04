@@ -88,8 +88,14 @@ export default function RegistrationScreen() {
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView
 					behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+					style={{ flex: 1, justifyContent: 'flex-end' }}
 				>
-					<View style={styles.Wrapper}>
+					<View
+						style={{
+							...styles.Wrapper,
+							marginBottom: isUserPasswordInFocus ? 50 : 0
+						}}
+					>
 						<View>
 							<Image source={imageSource} style={styles.avatar} />
 							{imageFile ? (
