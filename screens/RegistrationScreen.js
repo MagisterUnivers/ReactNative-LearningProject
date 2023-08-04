@@ -1,4 +1,4 @@
-import React, { useState, createRef } from 'react';
+import React, { useState, createRef, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
 	StyleSheet,
@@ -73,8 +73,11 @@ export default function RegistrationScreen() {
 			email: userEmail,
 			password: userPassword
 		});
-		console.log(registerData);
 	};
+
+	useEffect(() => {
+		console.log(registerData);
+	}, [registerData]);
 
 	return (
 		<ImageBackground

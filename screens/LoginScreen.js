@@ -1,4 +1,4 @@
-import { useState, createRef } from 'react';
+import { useState, createRef, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
 	StyleSheet,
@@ -42,8 +42,12 @@ export default function LoginScreen() {
 			email: userEmail,
 			password: userPassword
 		});
-		console.log(loginData);
 	};
+
+	useEffect(() => {
+		console.log(loginData);
+	}, [loginData]);
+
 	return (
 		<ImageBackground
 			source={backgroundImage}
