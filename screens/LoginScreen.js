@@ -15,6 +15,11 @@ import {
 
 import backgroundImage from '../assets/images/background-2x.jpg';
 
+const initialState = {
+	email: '',
+	password: ''
+};
+
 export default function LoginScreen() {
 	const navigation = useNavigation();
 	const [isUserEmailInFocus, setIsUserEmailInFocus] = useState(false);
@@ -22,6 +27,7 @@ export default function LoginScreen() {
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(true);
+	const [loginData, setLoginData] = useState(initialState);
 
 	const emailInputRef = createRef();
 	const passwordInputRef = createRef();
@@ -32,7 +38,11 @@ export default function LoginScreen() {
 		setIsUserPasswordInFocus(!isUserPasswordInFocus);
 
 	const handleSubmitButton = () => {
-		// do navigate to somewhere
+		setLoginData({
+			email: userEmail,
+			password: userPassword
+		});
+		console.log(loginData);
 	};
 	return (
 		<ImageBackground

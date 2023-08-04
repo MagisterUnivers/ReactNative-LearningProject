@@ -18,6 +18,12 @@ import * as ImagePicker from 'expo-image-picker';
 import backgroundImage from '../assets/images/background-2x.jpg';
 import placeholderAvatarSource from '../assets/images/avatar-placeholder.png';
 
+const initialState = {
+	name: '',
+	email: '',
+	password: ''
+};
+
 export default function RegistrationScreen() {
 	const navigation = useNavigation();
 	const [isUserNameInFocus, setIsUserNameInFocus] = useState(false);
@@ -28,6 +34,7 @@ export default function RegistrationScreen() {
 	const [userPassword, setUserPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(true);
 	const [imageFile, setImageFile] = useState(null);
+	const [registerData, setRegisterData] = useState(initialState);
 
 	const emailInputRef = createRef();
 	const passwordInputRef = createRef();
@@ -61,7 +68,12 @@ export default function RegistrationScreen() {
 			: placeholderAvatarSource;
 
 	const handleSubmitButton = () => {
-		// send user form data to somewhere
+		setRegisterData({
+			name: userName,
+			email: userEmail,
+			password: userPassword
+		});
+		console.log(registerData);
 	};
 
 	return (
