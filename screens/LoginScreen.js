@@ -42,6 +42,8 @@ export default function LoginScreen() {
 			email: userEmail,
 			password: userPassword
 		});
+		// need to clrear the "form"
+		navigation.navigate('Home');
 	};
 
 	useEffect(() => {

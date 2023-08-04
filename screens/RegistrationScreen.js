@@ -73,6 +73,8 @@ export default function RegistrationScreen() {
 			email: userEmail,
 			password: userPassword
 		});
+		// need to clrear the "form"
+		navigation.navigate('Home');
 	};
 
 	useEffect(() => {

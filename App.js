@@ -4,6 +4,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import RegistrationScreen from './screens/RegistrationScreen';
 import LoginScreen from './screens/LoginScreen';
+import Home from './screens/Home';
+import CommentsScreen from './screens/CommentsScreen';
+import MapScreen from './screens/MapScreen';
 
 const Stack = createStackNavigator();
 
@@ -41,10 +44,23 @@ export default function App() {
 					component={Auth}
 					options={{ headerShown: false }}
 				/>
+				<Stack.Screen
+					name="Home"
+					component={Home}
+					options={{ headerShown: false }}
+				/>
+				<Stack.Screen
+					name="CommentsScreen"
+					component={CommentsScreen}
+					options={{ title: 'Коментарі' }}
+				/>
+				<Stack.Screen
+					name="MapScreen"
+					component={MapScreen}
+					options={{ title: 'Карта' }}
+				/>
 			</Stack.Navigator>
 		</NavigationContainer>
-		// <RegistrationScreen />
-		// <LoginScreen />
 	);
 }
 
