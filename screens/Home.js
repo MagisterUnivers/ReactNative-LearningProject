@@ -40,10 +40,9 @@ export default Home = () => {
 						title: 'Публікації',
 						tabBarLabel: 'PostsScreen',
 						tabBarShowLabel: false,
-						// tabBarIcon: ({ color }) => (
-						// 	// <AntDesign name="appstore-o" size={24} color={color} />
-						// 	<Feather name="log-out" size={24} color="#BDBDBD" />
-						// ),
+						tabBarIcon: ({ color }) => (
+							<AntDesign name="appstore-o" size={24} color={color} />
+						),
 						headerRight: () => (
 							<Feather
 								name="log-out"
