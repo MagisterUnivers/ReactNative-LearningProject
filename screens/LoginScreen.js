@@ -1,10 +1,11 @@
-import { useState, createRef, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
 	StyleSheet,
 	TextInput,
 	View,
 	Text,
+	Image,
 	KeyboardAvoidingView,
 	TouchableOpacity,
 	ImageBackground,
@@ -14,42 +15,57 @@ import {
 } from 'react-native';
 
 import backgroundImage from '../assets/images/background-2x.jpg';
-
-const initialState = {
-	email: '',
-	password: ''
-};
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/operations/authOperations';
+import { auth } from '../config';
+import { selectAuthorized } from '../redux/selectors/authSelectors';
 
 export default function LoginScreen() {
+	const dispatch = useDispatch();
 	const navigation = useNavigation();
+	// const isAuthorized = useSelector(selectAuthorized);
 	const [isUserEmailInFocus, setIsUserEmailInFocus] = useState(false);
 	const [isUserPasswordInFocus, setIsUserPasswordInFocus] = useState(false);
 	const [userEmail, setUserEmail] = useState('');
 	const [userPassword, setUserPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(true);
-	const [loginData, setLoginData] = useState(initialState);
 
 	const emailInputRef = createRef();
 	const passwordInputRef = createRef();
 
 	const toggleShowPassword = () => setShowPassword(!showPassword);
+
 	const toggleUserEmailFocus = () => setIsUserEmailInFocus(!isUserEmailInFocus);
 	const toggleUserPasswordFocus = () =>
 		setIsUserPasswordInFocus(!isUserPasswordInFocus);
 
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user) {
+				navigation.replace('Home', {
+					screen: 'PostsScreen'
+				});
+			}
+		});
+		return unsubscribe;
+	}, []);
+
 	const handleSubmitButton = () => {
-		setLoginData({
+		if (!userEmail) {
+			alert('Please fill Email');
+			return;
+		}
+		if (!userPassword) {
+			alert('Please fill Password');
+			return;
+		}
+		const dataToSend = {
 			email: userEmail,
 			password: userPassword
-		});
-		// need to clrear the "form"
-		navigation.navigate('Home');
+		};
+		dispatch(login(dataToSend));
+		// navigation.replace("Home", { screen: "PostsScreen" })
 	};
-
-	useEffect(() => {
-		console.log(loginData);
-	}, [loginData]);
-
 	return (
 		<ImageBackground
 			source={backgroundImage}
@@ -246,6 +262,5 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontFamily: 'Roboto-Regular',
 		fontStyle: 'normal'
-		// fontWeight: 400
 	}
 });

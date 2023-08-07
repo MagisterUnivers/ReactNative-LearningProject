@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState, createRef } from 'react';
+import { useEffect, useLayoutEffect, useState, createRef, useRef } from 'react';
 import {
 	Keyboard,
 	TouchableWithoutFeedback,
@@ -14,16 +14,19 @@ import {
 } from 'react-native';
 import { useHeaderHeight } from '@react-navigation/elements';
 import { Camera } from 'expo-camera';
-import { MaterialIcons } from '@expo/vector-icons';
 import * as MediaLibrary from 'expo-media-library';
 import * as Location from 'expo-location';
-
 import ArrowLeft from '../assets/icons/ArrowLeft';
+import placeholderImageSource from '../assets/images/avatar-placeholder.png';
 import MapPin from '../assets/icons/MapPin';
+import { MaterialIcons } from '@expo/vector-icons';
 import CameraIcon from '../assets/icons/CameraIcon';
 import Trash from '../assets/icons/Trash';
+import { useDispatch } from 'react-redux';
+import { createPost } from '../redux/operations/postsOperations';
 
 export default function CreatePostsScreen({ navigation }) {
+	const dispatch = useDispatch();
 	const [hasPermission, setHasPermission] = useState(null);
 	const [cameraRef, setCameraRef] = useState(null);
 	const [type, setType] = useState(Camera.Constants.Type.back);
@@ -109,14 +112,17 @@ export default function CreatePostsScreen({ navigation }) {
 			alert('Please fill location');
 			return;
 		}
-		const postData = {
+		const dataToSend = {
 			title,
 			locationTitle,
 			location: JSON.stringify(location),
 			photo
 		};
 		await MediaLibrary.createAssetAsync(photo);
-		navigation.navigate('PostsScreen', { postData });
+		await dispatch(createPost(dataToSend));
+		navigation.replace('Home', {
+			screen: 'PostsScreen'
+		});
 	};
 
 	return (

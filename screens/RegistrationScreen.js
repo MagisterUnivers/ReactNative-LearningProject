@@ -1,4 +1,4 @@
-import React, { useState, createRef, useEffect } from 'react';
+import React, { useState, useEffect, createRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
 	StyleSheet,
@@ -17,16 +17,17 @@ import * as ImagePicker from 'expo-image-picker';
 
 import backgroundImage from '../assets/images/background-2x.jpg';
 import placeholderAvatarSource from '../assets/images/avatar-placeholder.png';
-
-const initialState = {
-	name: '',
-	email: '',
-	password: ''
-};
+// import AddRemoveButton from '../assets/icons/AddRemoveButton';
+import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../redux/operations/authOperations';
+import { auth } from '../config';
+// import { selectAuthorized } from '../redux/selectors/authSelectors';
 
 export default function RegistrationScreen() {
+	const dispatch = useDispatch();
 	const navigation = useNavigation();
-	const [isUserNameInFocus, setIsUserNameInFocus] = useState(false);
+	// const isAuthorized = useSelector(selectAuthorized);
+	const [isUserNameInFocus, setIsuserNameInFocus] = useState(false);
 	const [isUserEmailInFocus, setIsUserEmailInFocus] = useState(false);
 	const [isUserPasswordInFocus, setIsUserPasswordInFocus] = useState(false);
 	const [userName, setUserName] = useState('');
@@ -34,16 +35,27 @@ export default function RegistrationScreen() {
 	const [userPassword, setUserPassword] = useState('');
 	const [showPassword, setShowPassword] = useState(true);
 	const [imageFile, setImageFile] = useState(null);
-	const [registerData, setRegisterData] = useState(initialState);
 
 	const emailInputRef = createRef();
 	const passwordInputRef = createRef();
 
 	const toggleShowPassword = () => setShowPassword(!showPassword);
-	const toggleUserNameFocus = () => setIsUserNameInFocus(!isUserNameInFocus);
+
+	const toggleUserNameFocus = () => setIsuserNameInFocus(!isUserNameInFocus);
 	const toggleUserEmailFocus = () => setIsUserEmailInFocus(!isUserEmailInFocus);
 	const toggleUserPasswordFocus = () =>
 		setIsUserPasswordInFocus(!isUserPasswordInFocus);
+
+	useEffect(() => {
+		const unsubscribe = auth.onAuthStateChanged((user) => {
+			if (user) {
+				navigation.replace('Home', {
+					screen: 'PostsScreen'
+				});
+			}
+		});
+		return unsubscribe;
+	}, []);
 
 	const handleAvatarSelection = async () => {
 		let result = await ImagePicker.launchImageLibraryAsync({
@@ -68,19 +80,28 @@ export default function RegistrationScreen() {
 			: placeholderAvatarSource;
 
 	const handleSubmitButton = () => {
-		setRegisterData({
+		if (!userName) {
+			alert('Please fill Name');
+			return;
+		}
+		if (!userEmail) {
+			alert('Please fill Email');
+			return;
+		}
+		if (!userPassword) {
+			alert('Please fill Password');
+			return;
+		}
+		const dataToSend = {
+			avatar: imageFile,
 			name: userName,
 			email: userEmail,
 			password: userPassword
-		});
-		// need to clrear the "form"
-		navigation.navigate('Home');
+		};
+
+		dispatch(register(dataToSend));
+		// navigation.replace("Home", { screen: "PostsScreen" })
 	};
-
-	useEffect(() => {
-		console.log(registerData);
-	}, [registerData]);
-
 	return (
 		<ImageBackground
 			source={backgroundImage}
@@ -115,6 +136,7 @@ export default function RegistrationScreen() {
 									onPress={handleAvatarSelection}
 								>
 									<Text style={styles.selectAvatarButtonText}>+</Text>
+									{/* <AddRemoveButton /> */}
 								</TouchableOpacity>
 							)}
 						</View>
@@ -131,7 +153,7 @@ export default function RegistrationScreen() {
 								value={userName}
 								onChangeText={(UserName) => setUserName(UserName)}
 								underlineColorAndroid="#f000"
-								placeholder="Логін"
+								placeholder="Введіть Ім'я"
 								placeholderTextColor="#8b9cb5"
 								autoCapitalize="sentences"
 								returnKeyType="next"
@@ -369,6 +391,5 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		fontFamily: 'Roboto-Regular',
 		fontStyle: 'normal'
-		// fontWeight: 400
 	}
 });
