@@ -1,6 +1,6 @@
 import 'react-native-gesture-handler';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useFonts } from 'expo-font';
 import RegistrationScreen from './screens/RegistrationScreen';
