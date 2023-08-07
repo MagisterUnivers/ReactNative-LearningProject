@@ -17,16 +17,13 @@ import * as ImagePicker from 'expo-image-picker';
 
 import backgroundImage from '../assets/images/background-2x.jpg';
 import placeholderAvatarSource from '../assets/images/avatar-placeholder.png';
-// import AddRemoveButton from '../assets/icons/AddRemoveButton';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { register } from '../redux/operations/authOperations';
 import { auth } from '../config';
-// import { selectAuthorized } from '../redux/selectors/authSelectors';
 
 export default function RegistrationScreen() {
 	const dispatch = useDispatch();
 	const navigation = useNavigation();
-	// const isAuthorized = useSelector(selectAuthorized);
 	const [isUserNameInFocus, setIsuserNameInFocus] = useState(false);
 	const [isUserEmailInFocus, setIsUserEmailInFocus] = useState(false);
 	const [isUserPasswordInFocus, setIsUserPasswordInFocus] = useState(false);
@@ -100,7 +97,6 @@ export default function RegistrationScreen() {
 		};
 
 		dispatch(register(dataToSend));
-		// navigation.replace("Home", { screen: "PostsScreen" })
 	};
 	return (
 		<ImageBackground
@@ -136,7 +132,6 @@ export default function RegistrationScreen() {
 									onPress={handleAvatarSelection}
 								>
 									<Text style={styles.selectAvatarButtonText}>+</Text>
-									{/* <AddRemoveButton /> */}
 								</TouchableOpacity>
 							)}
 						</View>

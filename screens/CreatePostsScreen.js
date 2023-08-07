@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useState, createRef, useRef } from 'react';
+import { useEffect, useLayoutEffect, useState, createRef } from 'react';
 import {
 	Keyboard,
 	TouchableWithoutFeedback,
@@ -17,7 +17,6 @@ import { Camera } from 'expo-camera';
 import * as MediaLibrary from 'expo-media-library';
 import * as Location from 'expo-location';
 import ArrowLeft from '../assets/icons/ArrowLeft';
-import placeholderImageSource from '../assets/images/avatar-placeholder.png';
 import MapPin from '../assets/icons/MapPin';
 import { MaterialIcons } from '@expo/vector-icons';
 import CameraIcon from '../assets/icons/CameraIcon';

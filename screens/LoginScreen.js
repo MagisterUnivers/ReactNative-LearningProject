@@ -5,7 +5,6 @@ import {
 	TextInput,
 	View,
 	Text,
-	Image,
 	KeyboardAvoidingView,
 	TouchableOpacity,
 	ImageBackground,
@@ -18,12 +17,10 @@ import backgroundImage from '../assets/images/background-2x.jpg';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/operations/authOperations';
 import { auth } from '../config';
-import { selectAuthorized } from '../redux/selectors/authSelectors';
 
 export default function LoginScreen() {
 	const dispatch = useDispatch();
 	const navigation = useNavigation();
-	// const isAuthorized = useSelector(selectAuthorized);
 	const [isUserEmailInFocus, setIsUserEmailInFocus] = useState(false);
 	const [isUserPasswordInFocus, setIsUserPasswordInFocus] = useState(false);
 	const [userEmail, setUserEmail] = useState('');
@@ -64,7 +61,6 @@ export default function LoginScreen() {
 			password: userPassword
 		};
 		dispatch(login(dataToSend));
-		// navigation.replace("Home", { screen: "PostsScreen" })
 	};
 	return (
 		<ImageBackground
