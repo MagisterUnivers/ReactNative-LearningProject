@@ -57,7 +57,7 @@ export default function LoginScreen() {
 			<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 				<KeyboardAvoidingView
 					behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
-					style={{ flex: 1, justifyContent: 'flex-end' }}
+					style={styles.avoidContainer}
 				>
 					<View
 						style={{
@@ -153,6 +153,10 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderColor: '#000',
 		backgroundColor: '#fff'
+	},
+	avoidContainer: {
+		flex: 1,
+		justifyContent: 'flex-end'
 	},
 	backgroundImage: {
 		flex: 1,
